@@ -9,7 +9,7 @@ package sd_tp;
  *
  * @author Filipe Oliveira
  */
-public class SD_TP {
+public class main {
 
     /**
      * @param args the command line arguments
