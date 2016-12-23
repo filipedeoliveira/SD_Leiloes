@@ -36,6 +36,12 @@ public class Leilao {
         
     }
     
+    public List listaDeProdutos(){
+        List res = new ArrayList<Produto>();
+        //.....
+        return res;
+    }
+    
     
     
     public int getId_leilao() {
