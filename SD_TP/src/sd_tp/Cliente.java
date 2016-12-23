@@ -74,7 +74,4 @@ public class Cliente {
     public String toString() {
         return "Cliente{" + "idCliente=" + idCliente + ", userName=" + userName + ", password=" + password + ", tipo=" + tipo + '}';
     }
-    
-    
-
 }
