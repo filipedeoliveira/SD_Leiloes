@@ -32,5 +32,7 @@ public class Cliente2 {
         output = new PrintWriter(clienteSck.getOutputStream(), true);
 
     }
+    
+    //tartar aqui dos splits, recer o comando e meter no outup para enviar ao servidor
 
 }
