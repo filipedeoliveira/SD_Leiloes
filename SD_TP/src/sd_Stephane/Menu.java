@@ -25,8 +25,9 @@ public class Menu {
         System.out.println("4-Licitar Item");
         System.out.println("5-Terminar Leilão");
         System.out.println("6-Sair");
-        Scanner opcao = new Scanner(System.in);
-        int request = opcao.nextInt();
+        //Scanner opcao = new Scanner(System.in);
+        //int request = opcao.nextInt();
+        int request = Input.lerInt();
         for(int i=0;i<4;i++){
         System.out.println();}
         escolha(request,az);
