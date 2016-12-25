@@ -54,33 +54,33 @@ public class Cliente2 {
         for (int i = 0; i < 4; i++) {
             System.out.println();
         }
-        escolha(request);
+        escolha(request, az);
 
     }
 
-    public void escolha(int i) throws myException {
+    public void escolha(int i, Armazenamento az) throws myException {
 
         switch (i) {
             case 0:
-                Login();
+                Login(az);
                 break;
             case 1:
-                Registar();
+                Registar(az);
                 break;
             case 2:
-                Ver_Leiloes();
+                Ver_Leiloes(az);
                 break;
             case 3:
-                Vender_Item();
+                Vender_Item(az);
                 break;
             case 4:
-                Licitar_Item();
+                Licitar_Item(az);
                 break;
             case 5:
-                Terminar_Leilao();
+                Terminar_Leilao(az);
                 break;
             case 6:
-                Sair();
+                Sair(az);
                 break;
             default:
                 throw new myException("Tente Novamente");
@@ -88,11 +88,11 @@ public class Cliente2 {
         }
     }
 
-    private void Login() throws myException {
+    private void Login(Armazenamento az) throws myException {
 
         String serverResp = "";
 
-        mostraPrint("Digite username do Cliente: ");
+        mostraPrint("Digite o seu Cliente: ");
         String nome = Input.lerString();
         mostraPrint("Digite password ");
         String pass = Input.lerString();
@@ -100,32 +100,54 @@ public class Cliente2 {
         output.println(0 + "," + nome + "," + pass);
         try {
             serverResp = input.readLine();//falta tratar a resposta
+            menuCliente(az);
         } catch (IOException e) {
             throw new myException("Sem resposta do servidor!");
         }
     }
 
-    private void Registar() throws myException {
+    private void Registar(Armazenamento az) throws myException {
+        String serverResp = "";
+
+        mostraPrint("Digite um username: ");
+        String nome = Input.lerString();
+        mostraPrint("Digite uma password ");
+        String pass = Input.lerString();
+
+        output.println(1 + "," + nome + "," + pass);
+        try {
+            serverResp = input.readLine();//falta tratar a resposta
+
+        } catch (IOException e) {
+            throw new myException("Sem resposta do servidor!");
+        }
+    }
+
+    //Aqui não sei bem, pois é para receber um hasmap
+    private void Ver_Leiloes(Armazenamento az) throws myException {
+        mostraPrint("leilões a decorrer");
+        String serverResp = "";
+        try {
+            serverResp = input.readLine();//falta tratar a resposta
+        } catch (IOException e) {
+            throw new myException("Sem resposta do servidor!");
+        }
 
     }
 
-    private void Ver_Leiloes() throws myException {
+    private void Vender_Item(Armazenamento az) throws myException {
 
     }
 
-    private void Vender_Item() throws myException {
+    private void Licitar_Item(Armazenamento az) throws myException {
 
     }
 
-    private void Licitar_Item() throws myException {
+    private void Terminar_Leilao(Armazenamento az) throws myException {
 
     }
 
-    private void Terminar_Leilao() throws myException {
-
-    }
-
-    private void Sair() throws myException {
+    private void Sair(Armazenamento az) throws myException {
 
     }
 
