@@ -3,65 +3,69 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sd_Stephane;
+package Dados;
 
 /**
  *
  * @author Stéphane
  */
-public class Item {
+public class Venda {
+        int id;
         String nome_produto;
         String descricao;
         String Cliente;
         int estado; //0 - não vendeu, 1 - vendido
 
-    public Item(String nome_produto, String descricao, String Cliente, int estado) {
-        
+    public Venda(int id,String nome_produto, String descricao, String Cliente, int estado) {
+        this.id= id;
         this.nome_produto = nome_produto;
         this.descricao = descricao;
         this.Cliente = Cliente;
         this.estado = estado;
     }
 
-    public String getNome_produto() {
+    public synchronized String getNome_produto() {
         return nome_produto;
     }
 
-    public void setNome_produto(String nome_produto) {
+    public synchronized void setNome_produto(String nome_produto) {
         this.nome_produto = nome_produto;
     }
 
-    public String getDescricao() {
+    public synchronized String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public synchronized void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public String getCliente() {
+    public synchronized String getCliente() {
         return Cliente;
     }
 
-    public void setCliente(String Cliente) {
+    public synchronized void setCliente(String Cliente) {
         this.Cliente = Cliente;
     }
 
-    public int getEstado() {
+    public synchronized int getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public synchronized void setEstado(int estado) {
         this.estado = estado;
     }
 
-    
-    public String toString(Item i) {
-        String result = "Item{" + "nome_produto=" + i.getNome_produto() + ", descricao=" + i.getDescricao() + ", Cliente=" + i.getCliente() + ", estado=" + i.getEstado() + '}';
-        return result;
+    public synchronized int getId() {
+        return id;
     }
-   
-        
+
+    public synchronized void setId(int id) {
+        this.id = id;
+    }
+
+    
+  
         
         
 }

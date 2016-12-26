@@ -3,35 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sd_Stephane;
+package Dados;
 
 /**
  *
  * @author Stéphane
  */
 class Licitacao {
+    int id;
      private String cliente;
-     private float valor;
+     private int valor;
 
-    public Licitacao(String cliente, float valor) {
+    public Licitacao(int id,String cliente, int valor) {
+        this.id = id;
         this.cliente = cliente;
         this.valor = valor;
     }
 
+    public synchronized int getId() {
+        return id;
+    }
+
+    public synchronized void setId(int id) {
+        this.id = id;
+    }
+
      
-    public String getCliente() {
+    public synchronized String getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
+    public synchronized void setCliente(String cliente) {
         this.cliente = cliente;
     }
 
-    public float getValor() {
+    public synchronized int getValor() {
         return valor;
     }
 
-    public void setValor(float valor) {
+    public synchronized void setValor(int valor) {
         this.valor = valor;
     }
      
