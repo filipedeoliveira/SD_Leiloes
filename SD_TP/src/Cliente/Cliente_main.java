@@ -36,14 +36,16 @@ public class Cliente_main {
                 
                 // Envia o comando ao servidor
                 out.println(comando);
+                System.out.println("Comando enviado para server "+comando);
                 out.flush();
                 
+                //recebo resposta do servidor
                 resposta = in.readLine();
-                System.out.println(resposta);
-                
-                
+                System.out.println(resposta); //mando a respotas para o ecrã
                 System.out.print("> ");
             }
+            
+            System.out.println("Acabou de sair do sistema, obrigado pela visita!");
             
             // Envia a mensagem "sair" ao servidor para efetuar o logout do utilizador
             out.println(comando);
