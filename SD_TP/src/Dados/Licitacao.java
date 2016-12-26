@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Data;
+package Dados;
 
 /**
  *
  * @author Stéphane
  */
-class Licitacao {
+public class Licitacao {
     int id;
      private String cliente;
      private int valor;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Data;
+package Dados;
 
 import exceptions.UtilizadorJaExisteException;
 import java.util.ArrayList;
@@ -24,9 +24,26 @@ public class Licitacoes {
         this.licitacoes = licitacoes1;
     }
     
-    public synchronized void adicionarLicitacao(int id, String nome, int valor) throws UtilizadorJaExisteException{
+    public synchronized void adicionarLicitacao(int id, String nome, int valor) {
+        if (!licitacoes.containsKey(id)){
+            ArrayList<Licitacao> new_vector  =  new ArrayList<Licitacao>();
+            new_vector.add(new Licitacao(id,nome,valor));
+            licitacoes.put(id,new_vector);
+        }
+        else {ArrayList<Licitacao> new_vector = licitacoes.get(id);
+              new_vector.add(new Licitacao(id,nome,valor));}
+    }
+    
+    public synchronized void removerLicitacao(int id, Licitacao l) throws UtilizadorJaExisteException{
         if (!licitacoes.containsKey(id))
-            licitacoes.put(id, new Licitacao(id,nome,valor));
+            licitacoes.remove(id,l);
+        
         else throw new UtilizadorJaExisteException();
     }
+
+    public ArrayList<Licitacao> get(int value) {
+    return licitacoes.get(value);
+    }
+    
+    
 }
