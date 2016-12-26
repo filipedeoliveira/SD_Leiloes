@@ -22,16 +22,17 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ServidorRunnable implements Runnable {
 
-    private String nome;
+    private String nome;//
     private Socket cliente;
     private Cliente utilizador;
     private PrintWriter outputServidor;
     private BufferedReader inputCliente;
-
-    private Clientes clientes;
+    private Clientes clientes;//
     public Vendas vendas;
     private Licitacoes licitacoes;
     volatile static Integer inc = 0;
@@ -43,7 +44,7 @@ public class ServidorRunnable implements Runnable {
         this.clientes = clientes;
         this.vendas = vendas;
         this.licitacoes = licitacoes;
-        this.outputServidor = new PrintWriter(cliente.getOutputStream());
+        this.outputServidor = new PrintWriter(cliente.getOutputStream(),true);
         this.inputCliente = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
     }
 
@@ -52,15 +53,17 @@ public class ServidorRunnable implements Runnable {
 
         try {
             String mensagem;
-            this.outputServidor = new PrintWriter(cliente.getOutputStream());
+            this.outputServidor = new PrintWriter(cliente.getOutputStream(),true);
             this.inputCliente = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            mostra_menu1();
+            //mostra_menu1();
             mensagem = inputCliente.readLine();
+
             System.out.println("[" + cliente.getPort() + "] " + mensagem);
             escolha(mensagem);
 
         } catch (IOException ex) { // Caso o cliente se desligue espontaneamente, com sessao ativa, efetua-se o logout
             System.out.println(cliente.getPort() + " desligou-se!");
+
             if (this.nome != null) {
                 try {
                     clientes.logOut(this.nome);
@@ -71,23 +74,24 @@ public class ServidorRunnable implements Runnable {
         } finally {
             outputServidor.close();
         }
-
     }
 
     public void mostra_menu() {
-        System.out.println("###############escolha uma opcão:##########################");
+        outputServidor.println("7");
+        /*System.out.println("###############escolha uma opcão:##########################");
         System.out.println("2-Ver Leilões em curso");
         System.out.println("3-Vender Item");
         System.out.println("4-Licitar Item");
         System.out.println("5-Terminar Leilão");
-        System.out.println("6-Sair");
+        System.out.println("6-Sair");*/
     }
 
     public void mostra_menu1() {
-
-        System.out.println("###############escolha uma opcão:##########################");
+        /*System.out.println("###############escolha uma opcão:##########################");
         System.out.println("0-Login");
-        System.out.println("1-Registar");
+        System.out.println("1-Registar");*/
+        
+        outputServidor.println("8");
     }
 
     public void escolha(String s) throws IOException {
@@ -119,14 +123,15 @@ public class ServidorRunnable implements Runnable {
     }
 
     public void Login() throws IOException {
-        outputServidor.println("Login");
-        System.out.println("o meu comandoooooo ");
+        this.outputServidor.println("Login");
+        
 
         if (this.nome != null) {
             outputServidor.println("Ja se encontra online!");
             outputServidor.flush();
         }
-
+        
+        
         outputServidor.println("Digite username do Cliente: ");
         String nome = inputCliente.readLine();
         outputServidor.println("Digite password ");
@@ -151,8 +156,8 @@ public class ServidorRunnable implements Runnable {
     }
 
     public void Registar() throws IOException {
-        System.out.println("Estou no registar!!!!!!");
-        
+
+
         outputServidor.println("Registe se");
         outputServidor.println("Digite username do Cliente: ");
         String nome = inputCliente.readLine();
