@@ -24,7 +24,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-public class ServidorRunnable {
+public class ServidorRunnable implements Runnable{
     
     private String nome;
     private Socket cliente;
