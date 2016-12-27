@@ -31,7 +31,7 @@ public class Cliente_main {
             stdIn = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.println("Bem vindo");
-
+            mostra_menu1();
             
 
             System.out.print("> ");
@@ -44,9 +44,9 @@ public class Cliente_main {
                 out.flush();
 
                 //recebo do servidor
-                /**resposta = in.readLine();
+                resposta = in.readLine();
                 System.out.println(resposta);
-                switch (resposta) {
+                /**switch (resposta) {
                     case "7": {//aqui é para mostrar o menu, sempre que no servidor chego ao fim do médudo. 
                         mostra_menu();
                         break;
@@ -78,19 +78,20 @@ public class Cliente_main {
         }
 
     }
-    /*
+    
     public static void mostra_menu1() {
         System.out.println("###############escolha uma opcão:##########################");
         System.out.println("0-Login");
         System.out.println("1-Registar");
-    }
-
-    public static void mostra_menu() {
-        System.out.println("###############escolha uma opcão:##########################");
         System.out.println("2-Ver Leilões em curso");
         System.out.println("3-Vender Item");
         System.out.println("4-Licitar Item");
         System.out.println("5-Terminar Leilão");
         System.out.println("6-Sair");
+    }
+    /*
+    public static void mostra_menu() {
+        System.out.println("###############escolha uma opcão:##########################");
+        
     }*/
 }
