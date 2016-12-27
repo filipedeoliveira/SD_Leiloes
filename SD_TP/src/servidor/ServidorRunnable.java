@@ -11,6 +11,7 @@ import Dados.Licitacoes;
 import Dados.Venda;
 import Dados.Licitacao;
 import Dados.Vendas;
+import exceptions.NaoExisteItensException;
 import exceptions.PasswordIncorretaException;
 import exceptions.UtilizadorJaExisteException;
 import exceptions.UtilizadorNaoExisteException;
@@ -58,7 +59,7 @@ public class ServidorRunnable implements Runnable {
             while ((mensagem = inputCliente.readLine()) != null) {
                 System.out.println("[" + cliente.getPort() + "] " + mensagem);
                 this.escolha(mensagem);
-                mensagem = inputCliente.readLine();
+                //mensagem = inputCliente.readLine();
             }
         } catch (IOException ex) { // Caso o cliente se desligue espontaneamente, com sessao ativa, efetua-se o logout
             System.out.println(cliente.getPort() + " desligou-se!");
@@ -69,6 +70,8 @@ public class ServidorRunnable implements Runnable {
                 } catch (UtilizadorNaoExisteException | UtilizadorOfflineException ex1) {
                 }
             }
+        } catch (UtilizadorJaExisteException ex) {
+            Logger.getLogger(ServidorRunnable.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             outputServidor.close();
         }
@@ -78,30 +81,138 @@ public class ServidorRunnable implements Runnable {
         outputServidor.println("Escolha uma opção: {0,1,2,3,4,5,6}");
     }
 
-    public void escolha(String s) throws IOException {
-        int i = Integer.parseInt(s);
-        switch (i) {
-            case 0:
-                Login();
+    public void escolha(String msg) throws IOException, UtilizadorJaExisteException {
+        // i = Integer.parseInt(s);
+        String[] args = msg.split("\\s+");
+        String comando = args[0].toLowerCase();
+        int nArgs = args.length;
+        int size = msg.length();
+
+        switch (comando) {
+            case "0": {
+                if (this.nome != null) {
+                    outputServidor.println("Já se encontra ligado!");
+                    outputServidor.flush();
+                    break;
+                }
+                if (nArgs < 3) {
+                    outputServidor.println("Numeros de argumentos errados! ex: <C> <nome> <passe> ");
+                    outputServidor.flush();
+                    break;
+                }
+                try {
+                    this.utilizador = clientes.logIn(args[1], args[2]);
+                    this.nome = args[1];
+                    outputServidor.println("Login efetuado com sucesso");
+                    outputServidor.flush();
+                } catch (UtilizadorNaoExisteException ex) {
+                    outputServidor.println("O utilizador: " + args[1] + " não exite!");
+                    outputServidor.flush();
+                } catch (UtilizadorOnlineException ex) {
+                    outputServidor.println("O utilizado: " + args[1] + " já está online!");
+                    outputServidor.flush();
+                } catch (PasswordIncorretaException ex) {
+                    outputServidor.println("A password inserida é incorreta! ");
+                    outputServidor.flush();
+                }
                 break;
-            case 1:
-                Registar();
+            }
+
+            case "1": {
+                if (nArgs != 3 && nArgs != 2) {
+                    outputServidor.println("Numeros de argumentos errados! ex: <C> <nome> <passe>");
+                    outputServidor.flush();
+                    break;
+                }
+                try {
+                    if (nArgs == 3) {
+                        clientes.adicionarCliente(args[1], args[2]);
+                        outputServidor.println("Utilizador registado! ");
+                        outputServidor.flush();
+                    }
+
+                } catch (UtilizadorJaExisteException ex) {
+                    outputServidor.println("O utilizador " + args[1] + " já existe!");
+                    outputServidor.flush();
+                }
                 break;
-            case 2:
-                Ver_Leiloes();
+            }
+            case "2": {
+
+                if (nArgs != 2) {
+                    outputServidor.println("Numero de argumentos invalido! <C> <Ver>");
+                    outputServidor.flush();
+                    break;
+                }
+                int tam = vendas.size();
+                if (tam == 0) {
+                    outputServidor.println("Não existe leilões activos!");
+                    outputServidor.flush();
+                    break;
+                }
+                outputServidor.println("DECORRER");
+                for (int i = 0; i < vendas.size(); i++) {
+                    Venda it = vendas.get(i);
+                    int id = it.getId();
+                    String produto = it.getNome_produto();
+                    String descricao = it.getDescricao();
+                    String myCliente = it.getCliente();
+                    int estado = it.getEstado();
+                    outputServidor.println("Item{ id = " + id + " nome_produto= " + produto + ", descricao=" + descricao + ", Cliente=" + myCliente + ", estado=" + estado + '}');
+                }
+                outputServidor.println("###");
                 break;
-            case 3:
-                Vender_Item();
+            }
+            case "3": {
+                if (nArgs != 3) {
+                    outputServidor.println("Numero de argumentos invalido! <C> <NomeProduto> <Descricao>");
+                    outputServidor.flush();
+                    break;
+                }
+                Venda item = new Venda(this.inc, args[1], args[2], this.nome, 0);
+                vendas.put(this.inc, item);
+                outputServidor.println("Id da venda" + inc);
+                inc++;
                 break;
-            case 4:
+            }
+            case "4": {
                 Licitar_Item();
                 break;
-            case 5:
+            }
+            case "5": {
                 Terminar_Leilao();
                 break;
-            case 6:
-                Sair();
+            }
+            case "6": {
+
+                if (nArgs != 2) {
+                    outputServidor.println("Numero de argumentos invalido! Ex:  <6> <Sair>");
+                    outputServidor.flush();
+                    break;
+                }
+                if (this.nome == null) {
+                    outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                }
+                try {
+                    clientes.logOut(this.nome);
+                    this.nome = null;
+                    this.utilizador = null;
+                    outputServidor.println("Logout efetuado com sucesso");
+                    outputServidor.flush();
+                } catch (UtilizadorOfflineException ex) {
+                    outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                } catch (UtilizadorNaoExisteException ex) {
+                }
+
                 break;
+            }
+            default: {
+                outputServidor.println("Tente novamente!");
+                outputServidor.flush();
+                break;
+            }
 
         }
     }
@@ -110,7 +221,7 @@ public class ServidorRunnable implements Runnable {
         //outputServidor.println("LOGIN");
 
         if (this.nome != null) {
-            outputServidor.println("Ja se encontra logado!");
+            outputServidor.println("Ja se encontra ligado!");
             outputServidor.flush();
         }
         outputServidor.println("Digite username do Cliente: ");

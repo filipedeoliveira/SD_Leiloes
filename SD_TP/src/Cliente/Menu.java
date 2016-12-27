@@ -22,13 +22,16 @@ public class Menu {
 
     public static void mostra_menu1() {
         System.out.println("###############escolha uma opcão:##########################");
-        System.out.println("0-Login");
-        System.out.println("1-Registar");
-        System.out.println("2-Ver Leilões em curso");
-        System.out.println("3-Vender Item");
-        System.out.println("4-Licitar Item");
-        System.out.println("5-Terminar Leilão");
-        System.out.println("6-Sair");
+        System.out.println("Com = {0, 1, 2, 3, 4, 5, 6}");
+        System.out.println("Login - <0> <Nome> <Password>");
+        System.out.println("Registar - <1> <Mome> <Password>");
+        System.out.println("Ver Leilões em curso - <2> <ver>");
+        System.out.println("Vender Item - <3> <NomeItem> <Descricao> ");
+        System.out.println("Licitar Item - <4> ");
+        System.out.println("Terminar Leilão - <5>");
+        System.out.println("Sair <6> <sair> ou <6>");
+        System.out.println("#########################################################");
+        System.out.println("\n");
     }
 
     public static void login() throws IOException {

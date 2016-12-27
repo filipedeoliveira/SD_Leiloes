@@ -85,7 +85,7 @@ public class Cliente_main {
                         while (!("###".equals(resposta))) {
                             System.out.println(resposta);
                             resposta = in.readLine();
-                            System.out.println("estou no switch");
+                            //System.out.println("estou no switch");
                         }
                         //resposta = in.readLine();
                         break;
@@ -94,6 +94,7 @@ public class Cliente_main {
                         //System.out.println("estou no default");
                         System.out.println(resposta);
                         System.out.print("> ");
+                        
                         //break;
                     }
                 }
