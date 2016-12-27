@@ -107,7 +107,7 @@ public class ServidorRunnable implements Runnable {
     }
 
     public void Login() throws IOException {
-       //outputServidor.println("LOGIN");
+        //outputServidor.println("LOGIN");
 
         if (this.nome != null) {
             outputServidor.println("Ja se encontra logado!");

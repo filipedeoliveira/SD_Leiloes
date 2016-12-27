@@ -80,18 +80,27 @@ public class Cliente_main {
                 resposta = in.readLine();
                 //ALTEREI A PARTIR DAQUI
                 switch (resposta) {
+                    
                     case "DECORRER": {
-                        while (resposta != "###") {
+                        while (!("###".equals(resposta))) {
                             System.out.println(resposta);
                             resposta = in.readLine();
+                            System.out.println("estou no switch");
                         }
-                        resposta = in.readLine();
+                        //resposta = in.readLine();
                         break;
                     }
+                    default: {
+                        //System.out.println("estou no default");
+                        System.out.println(resposta);
+                        System.out.print("> ");
+                        //break;
+                    }
                 }
+                //System.out.println("saí do switch ");
                 //ATÉ AQUI
-                System.out.println(resposta);
-                System.out.print("> ");
+                //System.out.println(resposta);
+                //System.out.print("> ");
 
             }
 
