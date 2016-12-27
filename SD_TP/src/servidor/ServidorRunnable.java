@@ -44,7 +44,7 @@ public class ServidorRunnable implements Runnable {
         this.clientes = clientes;
         this.vendas = vendas;
         this.licitacoes = licitacoes;
-        this.outputServidor = new PrintWriter(cliente.getOutputStream(),true);
+        this.outputServidor = new PrintWriter(cliente.getOutputStream(), true);
         this.inputCliente = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
     }
 
@@ -77,6 +77,7 @@ public class ServidorRunnable implements Runnable {
     public void mostra_menu() {
         outputServidor.println("###############escolha uma opcão:##########################");
     }
+
     public void escolha(String s) throws IOException {
         int i = Integer.parseInt(s);
         switch (i) {
@@ -104,10 +105,10 @@ public class ServidorRunnable implements Runnable {
 
         }
     }
-    
+
     public void Login() throws IOException {
-        outputServidor.println("Login");
-        
+       // outputServidor.println("Login");
+
         if (this.nome != null) {
             outputServidor.println("Ja se encontra logado!");
             outputServidor.flush();
@@ -137,9 +138,8 @@ public class ServidorRunnable implements Runnable {
 
     public void Registar() throws IOException {
 
-
-        outputServidor.println("Registe se");
-        outputServidor.println("Digite username do Cliente: ");
+        outputServidor.println("Registe se, digite o user name: ");
+        //outputServidor.println("Digite username do Cliente: ");
         String nome = inputCliente.readLine();
         outputServidor.println("Digite password ");
         String pass = inputCliente.readLine();
@@ -169,8 +169,8 @@ public class ServidorRunnable implements Runnable {
     }
 
     public void Vender_Item() throws IOException {
-        outputServidor.println("Menu de vendas");
-        outputServidor.println("Digite nome do Item que deseja vender: ");
+        //outputServidor.println("Menu de vendas");
+        outputServidor.println("Menu vendas - Digite nome do Item que deseja vender: ");
         String nome = inputCliente.readLine();
         outputServidor.println("Digite uma descrição ");
         String descricao = inputCliente.readLine();

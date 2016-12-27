@@ -32,15 +32,15 @@ public class Cliente_main {
 
             System.out.println("Bem vindo");
             mostra_menu1();
-            
 
             System.out.print("> ");
             // Lê um comando do teclado
-            
+
             while (!(comando = stdIn.readLine()).equals("6")) {
 
                 // Envia o comando ao servidor
                 out.println(comando);
+                System.out.println("enviei o comando: "+comando);
                 out.flush();
 
                 //recebo do servidor
@@ -65,7 +65,7 @@ public class Cliente_main {
         }
 
     }
-    
+
     public static void mostra_menu1() {
         System.out.println("###############escolha uma opcão:##########################");
         System.out.println("0-Login");
