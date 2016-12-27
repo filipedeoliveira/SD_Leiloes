@@ -78,6 +78,18 @@ public class Cliente_main {
 
                 }*/
                 resposta = in.readLine();
+                //ALTEREI A PARTIR DAQUI
+                switch (resposta) {
+                    case "DECORRER": {
+                        while (resposta != "###") {
+                            System.out.println(resposta);
+                            resposta = in.readLine();
+                        }
+                        resposta = in.readLine();
+                        break;
+                    }
+                }
+                //ATÉ AQUI
                 System.out.println(resposta);
                 System.out.print("> ");
 

@@ -155,7 +155,7 @@ public class ServidorRunnable implements Runnable {
     }
 
     public void Ver_Leiloes() {
-        outputServidor.println("Leilões a decorrer");
+        outputServidor.println("DECORRER");
         for (int i = 0; i < vendas.size(); i++) {
             Venda it = vendas.get(i);
             int id = it.getId();
@@ -165,6 +165,7 @@ public class ServidorRunnable implements Runnable {
             int estado = it.getEstado();
             outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
         }
+        outputServidor.println("###");
         mostra_menu();
     }
 
