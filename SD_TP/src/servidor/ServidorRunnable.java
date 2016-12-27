@@ -144,6 +144,12 @@ public class ServidorRunnable implements Runnable {
                     outputServidor.flush();
                     break;
                 }
+                if (this.nome == null) {
+                    outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                    break;
+                }
+
                 int tam = vendas.size();
                 if (tam == 0) {
                     outputServidor.println("Não existe leilões activos!");
@@ -166,6 +172,11 @@ public class ServidorRunnable implements Runnable {
             case "3": {
                 if (nArgs != 3) {
                     outputServidor.println("Numero de argumentos invalido! <C> <NomeProduto> <Descricao>");
+                    outputServidor.flush();
+                    break;
+                }
+                if (this.nome == null) {
+                    outputServidor.println("Nao se encontra online!");
                     outputServidor.flush();
                     break;
                 }

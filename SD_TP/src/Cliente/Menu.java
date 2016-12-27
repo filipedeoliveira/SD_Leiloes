@@ -34,10 +34,18 @@ public class Menu {
         System.out.println("\n");
     }
 
+    public static void menuInit() {
+        System.out.println("############### Seja bem vindo! ##########################");
+        System.out.println("Login - <0> <Nome> <Password>");
+        System.out.println("Registar - <1> <Mome> <Password>");
+        System.out.println("#########################################################");
+        System.out.println("\n");
+    }
+
     public static void login() throws IOException {
         Scanner s = new Scanner(System.in);
         String user, passe, mensagem;
-        
+
         System.out.println("Menu Login ");
         System.out.println("Digite o seu username ");
         user = s.nextLine();
