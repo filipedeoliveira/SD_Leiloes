@@ -31,7 +31,7 @@ public class Cliente_main {
             stdIn = new BufferedReader(new InputStreamReader(System.in));
 
             System.out.println("Bem vindo");
-            mostra_menu1();
+            Menu.mostra_menu1();
 
             System.out.print("> ");
             // Lê um comando do teclado
@@ -40,10 +40,43 @@ public class Cliente_main {
 
                 // Envia o comando ao servidor
                 out.println(comando);
-                System.out.println("enviei o comando: "+comando);
                 out.flush();
 
-                //recebo do servidor
+                //recebo do servidor e leio
+                /*switch (resposta = in.readLine()) {
+                    case "LOGIN": {
+                        Menu.login();
+                        break;
+                    }
+                    case "REGISTAR": {
+                        Menu.registar();
+                        break;
+                    }
+                    case "VERLEILOES": {
+                        Menu.verLeiloes();
+                        break;
+                    }
+                    case "VENDERITEM": {
+                        Menu.venderItem();
+                        break;
+                    }
+                    case "LICITARITEM": {
+                        Menu.licitarItem();
+                        break;
+                    }
+                    case "TERMINARLEILAO": {
+                        Menu.terminarLeilao();
+                        break;
+                    }
+                    case "SAIR": {
+                        Menu.sair();
+                        break;
+                    }
+                    default: {
+                        System.out.println(resposta);
+                    }
+
+                }*/
                 resposta = in.readLine();
                 System.out.println(resposta);
                 System.out.print("> ");
@@ -66,16 +99,7 @@ public class Cliente_main {
 
     }
 
-    public static void mostra_menu1() {
-        System.out.println("###############escolha uma opcão:##########################");
-        System.out.println("0-Login");
-        System.out.println("1-Registar");
-        System.out.println("2-Ver Leilões em curso");
-        System.out.println("3-Vender Item");
-        System.out.println("4-Licitar Item");
-        System.out.println("5-Terminar Leilão");
-        System.out.println("6-Sair");
-    }
+
     /*
     public static void mostra_menu() {
         System.out.println("###############escolha uma opcão:##########################");

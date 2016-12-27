@@ -75,7 +75,7 @@ public class ServidorRunnable implements Runnable {
     }
 
     public void mostra_menu() {
-        outputServidor.println("###############escolha uma opcão:##########################");
+        outputServidor.println("Escolha uma opção: {0,1,2,3,4,5,6}");
     }
 
     public void escolha(String s) throws IOException {
@@ -107,7 +107,7 @@ public class ServidorRunnable implements Runnable {
     }
 
     public void Login() throws IOException {
-       // outputServidor.println("Login");
+       //outputServidor.println("LOGIN");
 
         if (this.nome != null) {
             outputServidor.println("Ja se encontra logado!");
