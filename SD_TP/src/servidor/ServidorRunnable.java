@@ -163,7 +163,7 @@ public class ServidorRunnable implements Runnable {
             String descricao = it.getDescricao();
             String cliente = it.getCliente();
             int estado = it.getEstado();
-            outputServidor.println("Item{ id=" + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
+            outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
         }
         mostra_menu();
     }
@@ -191,7 +191,7 @@ public class ServidorRunnable implements Runnable {
             String descricao = it.getDescricao();
             String cliente = it.getCliente();
             int estado = it.getEstado();
-            outputServidor.println("Item{ id=" + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
+            outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
         }
         outputServidor.println("escolha o id de um Item");
         String id = inputCliente.readLine();
