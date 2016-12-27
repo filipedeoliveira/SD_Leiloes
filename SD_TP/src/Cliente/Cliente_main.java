@@ -46,19 +46,6 @@ public class Cliente_main {
                 //recebo do servidor
                 resposta = in.readLine();
                 System.out.println(resposta);
-                /**switch (resposta) {
-                    case "7": {//aqui é para mostrar o menu, sempre que no servidor chego ao fim do médudo. 
-                        mostra_menu();
-                        break;
-                    }
-
-                    default: {
-                        System.out.println(resposta);
-                        break;
-
-                    }
-
-                }**/
                 System.out.print("> ");
 
             }

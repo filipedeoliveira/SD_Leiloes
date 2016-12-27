@@ -58,6 +58,7 @@ public class ServidorRunnable implements Runnable {
             while ((mensagem = inputCliente.readLine()) != null) {
                 System.out.println("[" + cliente.getPort() + "] " + mensagem);
                 this.escolha(mensagem);
+                mensagem = inputCliente.readLine();
             }
         } catch (IOException ex) { // Caso o cliente se desligue espontaneamente, com sessao ativa, efetua-se o logout
             System.out.println(cliente.getPort() + " desligou-se!");
@@ -75,13 +76,6 @@ public class ServidorRunnable implements Runnable {
 
     public void mostra_menu() {
         outputServidor.println("###############escolha uma opcão:##########################");
-        outputServidor.println("0-Login");
-        outputServidor.println("1-Registar");
-        outputServidor.println("2-Ver Leilões em curso");
-        outputServidor.println("3-Vender Item");
-        outputServidor.println("4-Licitar Item");
-        outputServidor.println("5-Terminar Leilão");
-        outputServidor.println("6-Sair");
     }
     public void escolha(String s) throws IOException {
         int i = Integer.parseInt(s);
