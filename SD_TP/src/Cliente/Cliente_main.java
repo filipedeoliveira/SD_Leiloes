@@ -36,72 +36,33 @@ public class Cliente_main {
             System.out.print("> ");
             // Lê um comando do teclado
 
-            while (!(comando = stdIn.readLine()).equals("6")) {
+            while (!(comando = stdIn.readLine()).equals("7")) {
 
                 // Envia o comando ao servidor
                 out.println(comando);
                 out.flush();
 
-                //recebo do servidor e leio
-                /*switch (resposta = in.readLine()) {
-                    case "LOGIN": {
-                        Menu.login();
-                        break;
-                    }
-                    case "REGISTAR": {
-                        Menu.registar();
-                        break;
-                    }
-                    case "VERLEILOES": {
-                        Menu.verLeiloes();
-                        break;
-                    }
-                    case "VENDERITEM": {
-                        Menu.venderItem();
-                        break;
-                    }
-                    case "LICITARITEM": {
-                        Menu.licitarItem();
-                        break;
-                    }
-                    case "TERMINARLEILAO": {
-                        Menu.terminarLeilao();
-                        break;
-                    }
-                    case "SAIR": {
-                        Menu.sair();
-                        break;
-                    }
-                    default: {
-                        System.out.println(resposta);
-                    }
-
-                }*/
-                resposta = in.readLine();
-                //ALTEREI A PARTIR DAQUI
+                
+               resposta = in.readLine();
                 switch (resposta) {
                     
-                    case "DECORRER": {
+                    case "DECORRER": 
                         while (!("###".equals(resposta))) {
                             System.out.println(resposta);
                             resposta = in.readLine();
-                            //System.out.println("estou no switch");
                         }
-                        //resposta = in.readLine();
                         break;
-                    }
+                        case "ATIVOS": 
+                        while (!("###".equals(resposta))) {
+                            System.out.println(resposta);
+                            resposta = in.readLine();
+                        }
+                        break;
                     default: {
-                        //System.out.println("estou no default");
                         System.out.println(resposta);
                         System.out.print("> ");
-                        
-                        //break;
                     }
                 }
-                //System.out.println("saí do switch ");
-                //ATÉ AQUI
-                //System.out.println(resposta);
-                //System.out.print("> ");
 
             }
 
@@ -120,11 +81,4 @@ public class Cliente_main {
         }
 
     }
-
-
-    /*
-    public static void mostra_menu() {
-        System.out.println("###############escolha uma opcão:##########################");
-        
-    }*/
 }

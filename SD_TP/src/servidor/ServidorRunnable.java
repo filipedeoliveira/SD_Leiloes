@@ -55,11 +55,10 @@ public class ServidorRunnable implements Runnable {
             String mensagem;
             this.outputServidor = new PrintWriter(cliente.getOutputStream(), true);
             this.inputCliente = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-
+            this.BD();
             while ((mensagem = inputCliente.readLine()) != null) {
                 System.out.println("[" + cliente.getPort() + "] " + mensagem);
                 this.escolha(mensagem);
-                //mensagem = inputCliente.readLine();
             }
         } catch (IOException ex) { // Caso o cliente se desligue espontaneamente, com sessao ativa, efetua-se o logout
             System.out.println(cliente.getPort() + " desligou-se!");
@@ -227,7 +226,7 @@ public class ServidorRunnable implements Runnable {
 
         }
     }
-
+    /*
     public void Login() throws IOException {
         //outputServidor.println("LOGIN");
 
@@ -302,11 +301,10 @@ public class ServidorRunnable implements Runnable {
         outputServidor.println("Id da venda" + inc);
         inc++;
         mostra_menu();
-    }
+    }*/
 
-    public void Licitar_Item() throws IOException {
-
-        System.out.println("leilões a decorrer");
+   public void Licitar_Item() throws IOException {
+        outputServidor.println("DECORRER");
         for (int i = 0; i < vendas.size(); i++) {
             Venda it = vendas.get(i);
             int id = it.getId();
@@ -316,23 +314,27 @@ public class ServidorRunnable implements Runnable {
             int estado = it.getEstado();
             outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
         }
+        outputServidor.println("###");
+        String lixo = inputCliente.readLine();
         outputServidor.println("escolha o id de um Item");
         String id = inputCliente.readLine();
         int request = Integer.parseInt(id);
-        if (vendas.containsKey(request)) {
+        if (vendas.containsKey(request) && (vendas.get(request).getEstado()!=1) && (!vendas.get(request).getCliente().equals(this.nome)) ) {
             outputServidor.println("Digite valor que deseja ofercer ");
             String value = inputCliente.readLine();
             int money = Integer.parseInt(value);
             licitacoes.adicionarLicitacao(request, nome, money);
-            mostra_menu();
+            outputServidor.println("Licitacao efetuada");
+            //mostra_menu();
         } else {
             outputServidor.println("Item invalido!");
             outputServidor.flush();
+            //mostra_menu();
         }
     }
 
     public void Terminar_Leilao() throws IOException {
-        outputServidor.println("Seus Leilões ativos");
+        outputServidor.println("ATIVOS");
         int size = vendas.size();
         for (int i = 0; i < size; i++) {
             Venda it = vendas.get(i);
@@ -345,6 +347,8 @@ public class ServidorRunnable implements Runnable {
                 outputServidor.println("Item{ id=" + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
             }
         }
+        outputServidor.println("###");
+        String lixo = inputCliente.readLine();
         outputServidor.println("Digite o leilão que quer terminar ");
         String id = inputCliente.readLine();
         int value = Integer.parseInt(id);
@@ -357,12 +361,12 @@ public class ServidorRunnable implements Runnable {
                 maior = lis.get(j).getValor();
                 vencedor = lis.get(j).getCliente();
             }
-            outputServidor.println("Vencedor " + vencedor + " quantia " + maior + "€");
         }
-        mostra_menu();
+        outputServidor.println("Vencedor " + vencedor + " quantia " + maior + "€");
+        //mostra_menu();
     }
 
-    public void Sair() {
+    /*public void Sair() {
 
         if (this.nome == null) {
             outputServidor.println("Nao se encontra online!");
@@ -381,6 +385,28 @@ public class ServidorRunnable implements Runnable {
             }
         }
         mostra_menu();
+    }
+    */
+    public void BD() throws UtilizadorJaExisteException{
+        clientes.adicionarCliente("alex","alex");
+        clientes.adicionarCliente("filipe","filipe");
+        clientes.adicionarCliente("manu","manu");
+        clientes.adicionarCliente("nuno","nuno");
+        
+        vendas.adicionarVenda(inc++,"TV", "TV 4K", "alex", 0);
+        vendas.adicionarVenda(inc++,"PC", "Toshiba", "filipe", 0);
+        vendas.adicionarVenda(inc++,"Relogio", "casio", "manu", 0);
+        vendas.adicionarVenda(inc++,"Carro", "BMW", "nuno", 0);
+        vendas.adicionarVenda(inc++,"Bola", "nike", "alex", 0);
+        vendas.adicionarVenda(inc++,"DVD", "Star Wars", "filipe", 0);
+        
+        licitacoes.adicionarLicitacao(0, "nuno", 300);
+        licitacoes.adicionarLicitacao(0, "filipe", 200);
+        licitacoes.adicionarLicitacao(2, "manu", 20);
+        licitacoes.adicionarLicitacao(3, "alex", 7000);
+        licitacoes.adicionarLicitacao(3, "manu", 8000);
+        licitacoes.adicionarLicitacao(1, "alex", 700);
+        licitacoes.adicionarLicitacao(4, "filipe", 30);
     }
 
 }
