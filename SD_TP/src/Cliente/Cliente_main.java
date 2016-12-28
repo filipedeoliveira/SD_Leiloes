@@ -36,7 +36,7 @@ public class Cliente_main {
             System.out.print("> ");
             // Lê um comando do teclado
 
-            while (!(comando = stdIn.readLine()).equals("7")) {
+            while (!(comando = stdIn.readLine()).equals("8")) {
 
                 // Envia o comando ao servidor
                 out.println(comando);
@@ -53,6 +53,12 @@ public class Cliente_main {
                         }
                         break;
                         case "ATIVOS": 
+                        while (!("###".equals(resposta))) {
+                            System.out.println(resposta);
+                            resposta = in.readLine();
+                        }
+                        break;
+                    case "MENSAGENS": 
                         while (!("###".equals(resposta))) {
                             System.out.println(resposta);
                             resposta = in.readLine();

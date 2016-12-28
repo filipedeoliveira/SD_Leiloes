@@ -30,6 +30,7 @@ public class Menu {
         System.out.println("Licitar Item - <4> ");
         System.out.println("Terminar Leilão - <5>");
         System.out.println("Sair <6> <sair> ou <6>");
+        System.out.println("Mensagens <7> ");
         System.out.println("#########################################################");
         System.out.println("\n");
     }
