@@ -5,6 +5,8 @@
  */
 package Dados;
 
+import java.util.TreeMap;
+
 /**
  *
  * @author Stéphane
@@ -15,6 +17,7 @@ public class Venda {
         String descricao;
         String Cliente;
         int estado; //0 - não vendeu, 1 - vendido
+
 
     public Venda(int id,String nome_produto, String descricao, String Cliente, int estado) {
         this.id= id;
