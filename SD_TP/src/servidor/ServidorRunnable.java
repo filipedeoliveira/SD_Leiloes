@@ -204,12 +204,22 @@ public class ServidorRunnable implements Runnable {
                     outputServidor.flush();
                     break;
                 }
+                if (nArgs != 2) {
+                    outputServidor.println("Numero de argumentos invalido! <4> <Licitar> ");
+                    outputServidor.flush();
+                    break;
+                }
                 Licitar_Item();
                 break;
             }
             case "5": {
                 if (this.nome == null) {
                     outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                    break;
+                }
+                if (nArgs != 2) {
+                    outputServidor.println("Numero de argumentos invalido! <5> <Terminar>");
                     outputServidor.flush();
                     break;
                 }
@@ -244,6 +254,11 @@ public class ServidorRunnable implements Runnable {
             case "7": {
                 if (this.nome == null) {
                     outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                    break;
+                }
+                if (nArgs != 2) {
+                    outputServidor.println("Numero de argumentos invalido! <7> <Mensagem>");
                     outputServidor.flush();
                     break;
                 }

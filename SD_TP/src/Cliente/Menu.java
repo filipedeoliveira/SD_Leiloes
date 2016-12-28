@@ -27,10 +27,10 @@ public class Menu {
         System.out.println("Registar - <1> <Mome> <Password>");
         System.out.println("Ver Leilões em curso - <2> <ver>");
         System.out.println("Vender Item - <3> <NomeItem> <Descricao> ");
-        System.out.println("Licitar Item - <4> ");
-        System.out.println("Terminar Leilão - <5>");
+        System.out.println("Licitar Item - <4> <Licitar> ");
+        System.out.println("Terminar Leilão - <5> Terminar");
         System.out.println("Sair <6> <sair> ou <6>");
-        System.out.println("Mensagens <7> ");
+        System.out.println("Mensagens <7> <Mensagem> ");
         System.out.println("#########################################################");
         System.out.println("\n");
     }
