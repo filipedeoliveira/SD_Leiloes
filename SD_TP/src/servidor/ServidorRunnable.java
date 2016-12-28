@@ -166,7 +166,7 @@ public class ServidorRunnable implements Runnable {
                     String myCliente = it.getCliente();
                     if(myCliente.equals(this.nome)) dono="*";
                     int estado = it.getEstado();
-outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + " " + dono + '}');                }
+                outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + myCliente + ", estado=" + estado + " " + dono + '}');                }
                 outputServidor.println("###");
                 break;
             }
