@@ -44,6 +44,10 @@ public class Licitacoes {
     public ArrayList<Licitacao> get(int value) {
     return licitacoes.get(value);
     }
+
+    public boolean containsKey(int id) {
+        return licitacoes.containsKey(id);
+    }
     
     
 }

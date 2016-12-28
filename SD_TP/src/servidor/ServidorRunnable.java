@@ -160,13 +160,14 @@ public class ServidorRunnable implements Runnable {
                 for (int i = 0; i < vendas.size(); i++) {
                     String dono="";
                     Venda it = vendas.get(i);
+                    String result = maiorLicitacao2(i, this.nome);
                     int id = it.getId();
                     String produto = it.getNome_produto();
                     String descricao = it.getDescricao();
                     String myCliente = it.getCliente();
                     if(myCliente.equals(this.nome)) dono="*";
                     int estado = it.getEstado();
-                outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + myCliente + ", estado=" + estado + " " + dono + '}');                }
+                outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + myCliente + ", estado=" + estado + " " + dono + " " + result +'}');                }
                 outputServidor.println("###");
                 break;
             }
@@ -236,14 +237,14 @@ public class ServidorRunnable implements Runnable {
         for (int i = 0; i < vendas.size(); i++) {
             String dono = "";
             Venda it = vendas.get(i);
+            String result = maiorLicitacao2(i, this.nome);
             int id = it.getId();
             String produto = it.getNome_produto();
             String descricao = it.getDescricao();
             String cliente = it.getCliente();
             if(cliente.equals(this.nome)) dono= "*";
             int estado = it.getEstado();
-            outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + " " + dono + '}');
-        }
+        outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + " " + dono + " " + result +'}');           }
         outputServidor.println("###");
         String lixo = inputCliente.readLine();
         outputServidor.println("escolha o id de um Item");
@@ -283,7 +284,34 @@ public class ServidorRunnable implements Runnable {
         String id = inputCliente.readLine();
         int value = Integer.parseInt(id);
         vendas.get(value).setEstado(1);
-        ArrayList<Licitacao> lis = licitacoes.get(value);
+        String vencedor = maiorLicitacao(value);
+        outputServidor.println(vencedor );
+        
+    }
+    
+    public String maiorLicitacao2(int id, String name) {
+        String result = "";
+        if (licitacoes.containsKey(id)) {
+            ArrayList<Licitacao> lis = licitacoes.get(id);
+            float maior = 0;
+            String vencedor = "";
+            for (int j = 0; j < lis.size(); j++) {
+                if (lis.get(j).getValor() > maior) {
+                    maior = lis.get(j).getValor();
+                    vencedor = lis.get(j).getCliente();
+                }
+            }
+            if (vencedor.equals(name)) {
+                result = "+";
+            }
+
+        }
+
+        return result;
+    }
+    
+    public String maiorLicitacao(int id){
+        ArrayList<Licitacao> lis = licitacoes.get(id);
         float maior = 0;
         String vencedor = "";
         for (int j = 0; j < lis.size(); j++) {
@@ -292,8 +320,7 @@ public class ServidorRunnable implements Runnable {
                 vencedor = lis.get(j).getCliente();
             }
         }
-        outputServidor.println("Vencedor " + vencedor + " quantia " + maior + "€");
-        
+        return "Vencedor " + vencedor + " quantia " + maior;
     }
 
     public void BD() throws UtilizadorJaExisteException{
