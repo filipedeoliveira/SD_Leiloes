@@ -156,15 +156,17 @@ public class ServidorRunnable implements Runnable {
                     break;
                 }
                 outputServidor.println("DECORRER");
+                
                 for (int i = 0; i < vendas.size(); i++) {
+                    String dono="";
                     Venda it = vendas.get(i);
                     int id = it.getId();
                     String produto = it.getNome_produto();
                     String descricao = it.getDescricao();
                     String myCliente = it.getCliente();
+                    if(myCliente.equals(this.nome)) dono="*";
                     int estado = it.getEstado();
-                    outputServidor.println("Item{ id = " + id + " nome_produto= " + produto + ", descricao=" + descricao + ", Cliente=" + myCliente + ", estado=" + estado + '}');
-                }
+outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + " " + dono + '}');                }
                 outputServidor.println("###");
                 break;
             }
@@ -226,93 +228,21 @@ public class ServidorRunnable implements Runnable {
 
         }
     }
-    /*
-    public void Login() throws IOException {
-        //outputServidor.println("LOGIN");
-
-        if (this.nome != null) {
-            outputServidor.println("Ja se encontra ligado!");
-            outputServidor.flush();
-        }
-        outputServidor.println("Digite username do Cliente: ");
-        String nome = inputCliente.readLine();
-        outputServidor.println("Digite password ");
-        String pass = inputCliente.readLine();
-        try {
-            this.utilizador = clientes.logIn(nome, pass);
-            this.nome = nome;
-            outputServidor.println("Login efetuado com sucesso");
-            outputServidor.flush();
-        } catch (UtilizadorNaoExisteException ex) {
-            outputServidor.println("O utilizador \"" + nome + "\" nao existe!");
-            outputServidor.flush();
-        } catch (UtilizadorOnlineException ex) {
-            outputServidor.println("O utilizador \"" + nome + "\" ja esta logado!");
-            outputServidor.flush();
-        } catch (PasswordIncorretaException ex) {
-            outputServidor.println("A password esta incorreta!");
-            outputServidor.flush();
-        }
-
-        mostra_menu();
-    }
-
-    public void Registar() throws IOException {
-
-        outputServidor.println("Registe se, digite o user name: ");
-        //outputServidor.println("Digite username do Cliente: ");
-        String nome = inputCliente.readLine();
-        outputServidor.println("Digite password ");
-        String pass = inputCliente.readLine();
-        try {
-            clientes.adicionarCliente(nome, pass);
-            outputServidor.println("Utilizador adicionado");
-            outputServidor.flush();
-        } catch (UtilizadorJaExisteException ex) {
-            outputServidor.println("O utilizador \"" + nome + "\" ja existe!");
-            outputServidor.flush();
-        }
-        mostra_menu();
-    }
-
-    public void Ver_Leiloes() {
-        outputServidor.println("DECORRER");
-        for (int i = 0; i < vendas.size(); i++) {
-            Venda it = vendas.get(i);
-            int id = it.getId();
-            String produto = it.getNome_produto();
-            String descricao = it.getDescricao();
-            String cliente = it.getCliente();
-            int estado = it.getEstado();
-            outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
-        }
-        outputServidor.println("###");
-        mostra_menu();
-    }
-
-    public void Vender_Item() throws IOException {
-        //outputServidor.println("Menu de vendas");
-        outputServidor.println("Menu vendas - Digite nome do Item que deseja vender: ");
-        String nome = inputCliente.readLine();
-        outputServidor.println("Digite uma descrição ");
-        String descricao = inputCliente.readLine();
-        Venda item = new Venda(inc, nome, descricao, nome, 0);
-        vendas.put(inc, item);
-        outputServidor.println("Id da venda" + inc);
-        inc++;
-        mostra_menu();
-    }*/
+    
 
    public void Licitar_Item() throws IOException {
         outputServidor.println("DECORRER");
+        
         for (int i = 0; i < vendas.size(); i++) {
+            String dono = "";
             Venda it = vendas.get(i);
             int id = it.getId();
             String produto = it.getNome_produto();
             String descricao = it.getDescricao();
             String cliente = it.getCliente();
+            if(cliente.equals(this.nome)) dono= "*";
             int estado = it.getEstado();
-            outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + '}');
+            outputServidor.println("Item{ id= " + id + "nome_produto=" + produto + ", descricao=" + descricao + ", Cliente=" + cliente + ", estado=" + estado + " " + dono + '}');
         }
         outputServidor.println("###");
         String lixo = inputCliente.readLine();
@@ -363,30 +293,9 @@ public class ServidorRunnable implements Runnable {
             }
         }
         outputServidor.println("Vencedor " + vencedor + " quantia " + maior + "€");
-        //mostra_menu();
+        
     }
 
-    /*public void Sair() {
-
-        if (this.nome == null) {
-            outputServidor.println("Nao se encontra online!");
-            outputServidor.flush();
-        } else {
-            try {
-                clientes.logOut(this.nome);
-                this.nome = null;
-                this.utilizador = null;
-                outputServidor.println("Logout efetuado com sucesso");
-                outputServidor.flush();
-            } catch (UtilizadorOfflineException ex) {
-                outputServidor.println("Nao se encontra online!");
-                outputServidor.flush();
-            } catch (UtilizadorNaoExisteException ex) {
-            }
-        }
-        mostra_menu();
-    }
-    */
     public void BD() throws UtilizadorJaExisteException{
         clientes.adicionarCliente("alex","alex");
         clientes.adicionarCliente("filipe","filipe");
