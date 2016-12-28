@@ -48,7 +48,7 @@ public class ServidorRunnable implements Runnable {
         this.vendas = vendas;
         this.licitacoes = licitacoes;
         this.outputServidor = new PrintWriter(cliente.getOutputStream(), true);
-        mensagens = new TreeMap<String,String>();
+        mensagens = new TreeMap<String, String>();
         this.inputCliente = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
     }
 
@@ -159,9 +159,9 @@ public class ServidorRunnable implements Runnable {
                     break;
                 }
                 outputServidor.println("DECORRER");
-                
+
                 for (int i = 0; i < vendas.size(); i++) {
-                    String dono="";
+                    String dono = "";
                     String est = "0";
                     Venda it = vendas.get(i);
                     String result = maiorLicitacao2(i, this.nome);
@@ -169,10 +169,15 @@ public class ServidorRunnable implements Runnable {
                     String produto = it.getNome_produto();
                     String descricao = it.getDescricao();
                     String myCliente = it.getCliente();
-                    if(myCliente.equals(this.nome)) dono="*";
+                    if (myCliente.equals(this.nome)) {
+                        dono = "*";
+                    }
                     int estado = it.getEstado();
-                     if(estado==1) est="terminado";
-                outputServidor.println("Item{ id= " + id + "nome_produto= " + produto + ", descricao= " + descricao + ", Cliente= " + myCliente + ", estado= " + est + " " + dono + " " + result +'}');                }
+                    if (estado == 1) {
+                        est = "terminado";
+                    }
+                    outputServidor.println("Item{ id= " + id + "nome_produto= " + produto + ", descricao= " + descricao + ", Cliente= " + myCliente + ", estado= " + est + " " + dono + " " + result + '}');
+                }
                 outputServidor.println("###");
                 break;
             }
@@ -194,10 +199,20 @@ public class ServidorRunnable implements Runnable {
                 break;
             }
             case "4": {
+                if (this.nome == null) {
+                    outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                    break;
+                }
                 Licitar_Item();
                 break;
             }
             case "5": {
+                if (this.nome == null) {
+                    outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                    break;
+                }
                 Terminar_Leilao();
                 break;
             }
@@ -209,7 +224,7 @@ public class ServidorRunnable implements Runnable {
                     break;
                 }
                 if (this.nome == null) {
-                    outputServidor.println("Nao se encontra online!");
+                    outputServidor.println("Nao se encontra online, não estava autenticado!");
                     outputServidor.flush();
                 }
                 try {
@@ -227,22 +242,27 @@ public class ServidorRunnable implements Runnable {
                 break;
             }
             case "7": {
+                if (this.nome == null) {
+                    outputServidor.println("Nao se encontra online!");
+                    outputServidor.flush();
+                    break;
+                }
                 verMensagens();
                 break;
             }
             default: {
-                outputServidor.println("Tente novamente!");
+                outputServidor.println("Novo Comando!");
                 outputServidor.flush();
                 break;
             }
 
         }
     }
-    
 
-   public void Licitar_Item() throws IOException {
+    public void Licitar_Item() throws IOException {
+
         outputServidor.println("DECORRER");
-        
+
         for (int i = 0; i < vendas.size(); i++) {
             String dono = "";
             String est = "0";
@@ -252,16 +272,21 @@ public class ServidorRunnable implements Runnable {
             String produto = it.getNome_produto();
             String descricao = it.getDescricao();
             String cliente = it.getCliente();
-            if(cliente.equals(this.nome)) dono= "*";
+            if (cliente.equals(this.nome)) {
+                dono = "*";
+            }
             int estado = it.getEstado();
-            if(estado==1) est="terminado";
-        outputServidor.println("Item{ id = " + id + " nome_produto= " + produto + ", descricao= " + descricao + ", Cliente= " + cliente + ", estado= " + est + " " + dono + " " + result +'}');           }
+            if (estado == 1) {
+                est = "terminado";
+            }
+            outputServidor.println("Item{ id = " + id + " nome_produto= " + produto + ", descricao= " + descricao + ", Cliente= " + cliente + ", estado= " + est + " " + dono + " " + result + '}');
+        }
         outputServidor.println("###");
         String lixo = inputCliente.readLine();
         outputServidor.println("escolha o id de um Item");
         String id = inputCliente.readLine();
         int request = Integer.parseInt(id);
-        if (vendas.containsKey(request) && (vendas.get(request).getEstado()!=1) && (!vendas.get(request).getCliente().equals(this.nome)) ) {
+        if (vendas.containsKey(request) && (vendas.get(request).getEstado() != 1) && (!vendas.get(request).getCliente().equals(this.nome))) {
             outputServidor.println("Digite valor que deseja ofercer ");
             String value = inputCliente.readLine();
             int money = Integer.parseInt(value);
@@ -280,7 +305,7 @@ public class ServidorRunnable implements Runnable {
         int size = vendas.size();
         for (int i = 0; i < size; i++) {
             Venda it = vendas.get(i);
-            if (it.getCliente().equals(nome) && (it.getEstado()!=1)) {
+            if (it.getCliente().equals(nome) && (it.getEstado() != 1)) {
                 int id = it.getId();
                 String produto = it.getNome_produto();
                 String descricao = it.getDescricao();
@@ -297,9 +322,9 @@ public class ServidorRunnable implements Runnable {
         vendas.get(value).setEstado(1);
         maiorLicitacao(value);
         outputServidor.println("Leilao terminou");
-        
+
     }
-    
+
     public String maiorLicitacao2(int id, String name) {
         String result = "";
         if (licitacoes.containsKey(id)) {
@@ -320,8 +345,8 @@ public class ServidorRunnable implements Runnable {
 
         return result;
     }
-    
-    public void maiorLicitacao(int id){
+
+    public void maiorLicitacao(int id) {
         ArrayList<Licitacao> lis = licitacoes.get(id);
         float maior = 0;
         String vencedor = "";
@@ -331,37 +356,35 @@ public class ServidorRunnable implements Runnable {
                 vencedor = lis.get(j).getCliente();
             }
         }
-        if (!mensagens.containsKey(this.nome)){
-            String s = "Vendeu o item " + id +" por "+maior;
-            mensagens.put(this.nome,s);
+        if (!mensagens.containsKey(this.nome)) {
+            String s = "Vendeu o item " + id + " por " + maior;
+            mensagens.put(this.nome, s);
+        } else {
+            String s = "Vendeu o item " + id + " por " + maior;
+            mensagens.put(this.nome, s);
         }
-        else {
-            String s = "Vendeu o item " + id +" por "+maior;
-            mensagens.put(this.nome,s);
-        }
-        if (!mensagens.containsKey(vencedor)){
+        if (!mensagens.containsKey(vencedor)) {
             String p = "Venceu o leilão pelo item " + id;
-            mensagens.put(vencedor,p);
-        }
-        else {
+            mensagens.put(vencedor, p);
+        } else {
             String p = "Venceu o leilão pelo item " + id;
-            mensagens.put(vencedor,p);
+            mensagens.put(vencedor, p);
         }
     }
 
-    public void BD() throws UtilizadorJaExisteException{
-        clientes.adicionarCliente("alex","alex");
-        clientes.adicionarCliente("filipe","filipe");
-        clientes.adicionarCliente("manu","manu");
-        clientes.adicionarCliente("nuno","nuno");
-        
-        vendas.adicionarVenda(inc++,"TV", "TV 4K", "alex", 0);
-        vendas.adicionarVenda(inc++,"PC", "Toshiba", "filipe", 0);
-        vendas.adicionarVenda(inc++,"Relogio", "casio", "manu", 0);
-        vendas.adicionarVenda(inc++,"Carro", "BMW", "nuno", 0);
-        vendas.adicionarVenda(inc++,"Bola", "nike", "alex", 0);
-        vendas.adicionarVenda(inc++,"DVD", "Star Wars", "filipe", 0);
-        
+    public void BD() throws UtilizadorJaExisteException {
+        clientes.adicionarCliente("alex", "alex");
+        clientes.adicionarCliente("filipe", "filipe");
+        clientes.adicionarCliente("manu", "manu");
+        clientes.adicionarCliente("nuno", "nuno");
+
+        vendas.adicionarVenda(inc++, "TV", "TV 4K", "alex", 0);
+        vendas.adicionarVenda(inc++, "PC", "Toshiba", "filipe", 0);
+        vendas.adicionarVenda(inc++, "Relogio", "casio", "manu", 0);
+        vendas.adicionarVenda(inc++, "Carro", "BMW", "nuno", 0);
+        vendas.adicionarVenda(inc++, "Bola", "nike", "alex", 0);
+        vendas.adicionarVenda(inc++, "DVD", "Star Wars", "filipe", 0);
+
         licitacoes.adicionarLicitacao(0, "nuno", 300);
         licitacoes.adicionarLicitacao(0, "filipe", 200);
         licitacoes.adicionarLicitacao(2, "manu", 20);
@@ -369,15 +392,14 @@ public class ServidorRunnable implements Runnable {
         licitacoes.adicionarLicitacao(3, "manu", 8000);
         licitacoes.adicionarLicitacao(1, "alex", 700);
         licitacoes.adicionarLicitacao(4, "filipe", 30);
-        
-       
+
     }
 
     public void verMensagens() {
         outputServidor.println("MENSAGENS");
         String mens = mensagens.get(this.nome);
-            outputServidor.println(">>> "+ mens);
-            outputServidor.println("###");
+        outputServidor.println(">>> " + mens);
+        outputServidor.println("###");
     }
 
 }
