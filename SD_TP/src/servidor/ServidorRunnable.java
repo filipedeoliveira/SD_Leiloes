@@ -318,8 +318,10 @@ public class ServidorRunnable implements Runnable {
     public void Terminar_Leilao() throws IOException {
         outputServidor.println("ATIVOS");
         int size = vendas.size();
+        int flag=0, num=0;
         for (int i = 0; i < size; i++) {
             Venda it = vendas.get(i);
+            if (it.getCliente().equals(nome)) num++;
             if (it.getCliente().equals(nome) && (it.getEstado() != 1)) {
                 int id = it.getId();
                 String produto = it.getNome_produto();
@@ -328,7 +330,12 @@ public class ServidorRunnable implements Runnable {
                 int estado = it.getEstado();
                 outputServidor.println("Item{ id= " + id + " nome_produto= " + produto + ", descricao= " + descricao + ", Cliente= " + cliente + ", estado= " + estado + '}');
             }
+            if (it.getCliente().equals(nome) && (it.getEstado() == 1)) flag++;
         }
+        if(num==flag) {outputServidor.println("###");
+        outputServidor.println("Não tem mais  ativos");
+        } 
+        else {
         outputServidor.println("###");
         String lixo = inputCliente.readLine();
         outputServidor.println("Digite o leilão que quer terminar ");
@@ -337,7 +344,7 @@ public class ServidorRunnable implements Runnable {
         vendas.get(value).setEstado(1);
         maiorLicitacao(value);
         outputServidor.println("Leilao terminou");
-
+        }
     }
 
     public String maiorLicitacao2(int id, String name) {
