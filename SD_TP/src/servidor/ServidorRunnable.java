@@ -164,7 +164,7 @@ public class ServidorRunnable implements Runnable {
                     String dono = "";
                     String est = "0";
                     Venda it = vendas.get(i);
-                    String result = maiorLicitacao2(i, this.nome);
+                    String result = Licitacoes.maiorLicitacao2(i, this.nome, licitacoes);
                     int id = it.getId();
                     String produto = it.getNome_produto();
                     String descricao = it.getDescricao();
@@ -282,7 +282,7 @@ public class ServidorRunnable implements Runnable {
             String dono = "";
             String est = "0";
             Venda it = vendas.get(i);
-            String result = maiorLicitacao2(i, this.nome);
+            String result = Licitacoes.maiorLicitacao2(i, this.nome, licitacoes);
             int id = it.getId();
             String produto = it.getNome_produto();
             String descricao = it.getDescricao();
@@ -332,7 +332,8 @@ public class ServidorRunnable implements Runnable {
             }
             if (it.getCliente().equals(nome) && (it.getEstado() == 1)) flag++;
         }
-        if(num==flag) {outputServidor.println("###");
+        if(num==flag) {
+        outputServidor.println("###");
         outputServidor.println("Não tem mais  ativos");
         } 
         else {
@@ -347,26 +348,6 @@ public class ServidorRunnable implements Runnable {
         }
     }
 
-    public String maiorLicitacao2(int id, String name) {
-        String result = "";
-        if (licitacoes.containsKey(id)) {
-            ArrayList<Licitacao> lis = licitacoes.get(id);
-            float maior = 0;
-            String vencedor = "";
-            for (int j = 0; j < lis.size(); j++) {
-                if (lis.get(j).getValor() > maior) {
-                    maior = lis.get(j).getValor();
-                    vencedor = lis.get(j).getCliente();
-                }
-            }
-            if (vencedor.equals(name)) {
-                result = "+";
-            }
-
-        }
-
-        return result;
-    }
 
     public void maiorLicitacao(int id) {
         ArrayList<Licitacao> lis = licitacoes.get(id);

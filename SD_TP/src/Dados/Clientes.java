@@ -31,7 +31,7 @@ public class Clientes {
     }
     
     
-     public Cliente logIn(String nome, String password) throws UtilizadorNaoExisteException, UtilizadorOnlineException, PasswordIncorretaException{
+     public synchronized Cliente logIn(String nome, String password) throws UtilizadorNaoExisteException, UtilizadorOnlineException, PasswordIncorretaException{
         Cliente u;
         if (utilizadores.containsKey(nome)){
             u = utilizadores.get(nome);
@@ -43,7 +43,7 @@ public class Clientes {
     }
     
        
-    public void logOut(String nome) throws UtilizadorNaoExisteException, UtilizadorOfflineException{
+    public synchronized void logOut(String nome) throws UtilizadorNaoExisteException, UtilizadorOfflineException{
         if (utilizadores.containsKey(nome)){
             Cliente u = utilizadores.get(nome);
             // Método "logOut" da classe Utilizador é synchronized
