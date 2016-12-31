@@ -24,7 +24,7 @@ public class Menu {
         System.out.println("###############escolha uma opcão:##########################");
         System.out.println("Com = {0, 1, 2, 3, 4, 5, 6}");
         System.out.println("Login - <0> <Nome> <Password>");
-        System.out.println("Registar - <1> <Mome> <Password>");
+        System.out.println("Registar - <1> <Nome> <Password>");
         System.out.println("Ver Leilões em curso - <2> <ver>");
         System.out.println("Vender Item - <3> <NomeItem> <Descricao> ");
         System.out.println("Licitar Item - <4> <Licitar> ");
