@@ -8,6 +8,7 @@ package Dados;
 import exceptions.UtilizadorJaExisteException;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.concurrent.locks.Lock;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.TreeMap;
  */
 public class Licitacoes {
     private TreeMap<Integer,ArrayList<Licitacao>> licitacoes;
+    private Lock lock;
     
     public Licitacoes(){
         this.licitacoes = new TreeMap<>();
