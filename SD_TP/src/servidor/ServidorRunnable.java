@@ -57,10 +57,11 @@ public class ServidorRunnable implements Runnable {
     @Override
     public void run() {
         try {
+            this.BD();
             String mensagem;
             this.outputServidor = new PrintWriter(cliente.getOutputStream(), true);
             this.inputCliente = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            this.BD();
+           // this.BD();
             while ((mensagem = inputCliente.readLine()) != null) {
                 System.out.println("[" + cliente.getPort() + "] " + mensagem);
                 this.escolha(mensagem);
