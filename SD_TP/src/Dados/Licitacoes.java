@@ -18,12 +18,10 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Licitacoes {
 
-   private Condition semLicitacao;
-    
+    private Condition semLicitacao;
+
     private TreeMap<Integer, ArrayList<Licitacao>> licitacoes;
     private Lock lock;
-
-    
 
     public Licitacoes() {
         this.licitacoes = new TreeMap<>();
